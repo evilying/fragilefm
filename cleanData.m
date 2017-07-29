@@ -5,10 +5,12 @@ dataDir = '../';
 namefile = 'data.xlsx'; 
 matcase = xlsread(fullfile(dataDir, namefile)); 
 
+nthreshold = floor(size(matcase, 1) * 0.3); 
+
 nanColloc = find(all(isnan(matcase))); 
 matcase(:, nanColloc) = []; 
 
-missColloc = find(all(matcase < 0)); 
+missColloc = sum(matcase < 0) > nthreshold; 
 matcase(:, missColloc) = []; 
 
 missloc = find(matcase < 0); 
