@@ -21,8 +21,6 @@ for i = 1: length(feats)
     feats{i} = char(featList{1, featIndice(i)}); 
 end
 
-xlswrite('desertedfeatures.xlsx', feats(:)); 
-
 allIndice = 1: 12949; 
 importfeatIndice = sort(setdiff(allIndice, featIndice)); 
 
@@ -33,6 +31,10 @@ for i = 1: length(importFeats)
     importFeats{i} = char(featList{1, importfeatIndice(i)}); 
 end
 
-xlswrite('importfeatures.xlsx', importFeats(:)); 
+speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
+
+xlswrite('importfeatures.xlsx', importFeats(setdiff(1: length(importFeats), speciDelloc))'); 
+
+xlswrite('desertedfeatures.xlsx', [feats(:); importFeats(speciDelloc)']); 
 
 fclose(fileId); 
