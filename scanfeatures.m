@@ -9,6 +9,7 @@ line = fgetl(fileId);
 nCols = 12949; 
 featList = textscan(line, repmat('%s', 1, nCols), 'Delimiter', ','); 
 
+% speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056]; 
 featIndice = sort([nanColloc, missColloc]); 
 
 % feats(:) = featList{1, featIndice}; 
