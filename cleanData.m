@@ -20,8 +20,8 @@ missColloc = find(sum(matcase < 0) > nthreshold);
 matcase(:, missColloc) = []; 
 
 matcase = double(matcase); 
-speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
-matcase = matcase(:, setdiff(1: size(matcase, 2), speciDelloc)); 
+% speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
+% matcase = matcase(:, setdiff(1: size(matcase, 2), speciDelloc)); 
 
 ncase = size(matcase, 1); 
 nfeatures = size(matcase, 2); 
