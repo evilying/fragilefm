@@ -24,7 +24,7 @@ function [lm_factor, selected_features] = ...
     X = X(:, selected_features); 
     lm_factor = fitlm(X, Y, 'linear'); 
     %% generate the file
-    dataDir = '../'; 
+    dataDir = './'; 
     namefile = 'importfeatures.xlsx'; 
 
     % open file 
