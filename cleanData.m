@@ -3,9 +3,9 @@ dataDir = '../';
 % namefile = 'data.xlsx'; 
 % matcase = xlsread(fullfile(dataDir, namefile)); 
 
-matcase = data; 
+matcase = data(:, [1, 8: end]); 
 
-nthreshold = floor(size(matcase, 1) * 0.5); 
+nthreshold = floor(size(matcase, 1) * 0.3); 
 
 nanColloc = find(all(isnan(matcase))); 
 

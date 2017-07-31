@@ -30,10 +30,10 @@ for i = 1: length(importFeats)
     importFeats{i} = char(featList{1, importfeatIndice(i)}); 
 end
 
-speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
+% speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
+% xlswrite('importfeatures.csv', importFeats(setdiff(1: length(importFeats), speciDelloc))'); 
 
-xlswrite('importfeatures.csv', importFeats(setdiff(1: length(importFeats), speciDelloc))'); 
-
-xlswrite('desertedfeatures.csv', [feats(:); importFeats(speciDelloc)']); 
+xlswrite('importfeatures.xlsx', importFeats(:)); 
+xlswrite('desertedfeatures.xlsx', [feats(:); importFeats(speciDelloc)']); 
 
 fclose(fileId); 

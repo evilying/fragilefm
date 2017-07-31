@@ -1,27 +1,19 @@
 dataDir = '../'; 
 
-% namefile = 'data.xlsx'; 
-% predict_matcase = xlsread(fullfile(dataDir, namefile)); 
+predict_matcase = predict_data(:, 1: end-6); 
 
-predict_matcase = data; 
-
-nthreshold = floor(size(predict_matcase, 1) * 0.3); 
-
-nanColloc = find(all(isnan(predict_matcase))); 
-
-missloc = find(predict_matcase < 0); 
-predict_matcase(missloc) = -999; 
-nanloc = find(isnan(predict_matcase));
-predict_matcase(nanloc) = -999; 
-
-missColloc = find(sum(predict_matcase < 0) > nthreshold); 
-
-% predict_matcase(:, nanColloc) = []; 
 predict_matcase(:, missColloc) = []; 
 
+%% replace NA
+nanloc = find(isnan(predict_matcase)); 
+predict_matcase(nanloc) = -999; 
+
+missloc = predict_matcase < 0; 
+predict_matcase(missloc) = -999; 
+
 predict_matcase = double(predict_matcase); 
-speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
-predict_matcase = predict_matcase(:, setdiff(1: size(predict_matcase, 2), speciDelloc)); 
+% speciDelloc = [158: 167, 306: 315, 534: 543, 784: 793, 1047: 1056];
+% predict_matcase = predict_matcase(:, setdiff(1: size(predict_matcase, 2), speciDelloc)); 
 
 ncase = size(predict_matcase, 1); 
 nfeatures = size(predict_matcase, 2); 
@@ -39,4 +31,4 @@ for ifeat = 1: nfeatures
     predict_matcase(colNegInd, ifeat) = repmat(value, 1, length(colNegInd)); 
 end
 
-xlswrite(fullfile(dataDir, 'clean-v6.xlsx'), predict_matcase); 
+xlswrite(fullfile(dataDir, 'clean-predict-v6.xlsx'), predict_matcase); 
