@@ -2,7 +2,7 @@
 % 1. the features 
 % 2. the outcome: gpa, grit
 function [lm_factor, selected_features, cverror, resuberror] = ...
-    retieveLDAModel(fileId, iOutcome, matcase, kernel, name) 
+    retieveLDAModel(fileId, iOutcome, ratio, matcase, kernel, name) 
     
     % open file
     outcomes = xlsread(fileId); 
@@ -13,7 +13,7 @@ function [lm_factor, selected_features, cverror, resuberror] = ...
     X = matcase(meaningIndice, 2: end); 
     opts = statset('UseParallel',true); 
     tic; 
-    [b, fitinfo] = lasso(X, Y, 'CV', 5, 'Alpha', 0.5, 'Options', opts); 
+    [b, fitinfo] = lasso(X, Y, 'CV', 5, 'Alpha', ratio, 'Options', opts); 
     toc
 
     lambdaindex = fitinfo.IndexMinMSE; 

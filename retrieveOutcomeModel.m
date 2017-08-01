@@ -2,7 +2,7 @@
 % 1. the features 
 % 2. the outcome: gpa, grit
 function [lm_factor, selected_features] = ...
-    retieveOutcomeModel(fileId, iOutcome, matcase, name) 
+    retrieveOutcomeModel(fileId, iOutcome, ratio, matcase, name) 
     
     % open file
     outcomes = xlsread(fileId); 
@@ -13,10 +13,10 @@ function [lm_factor, selected_features] = ...
     X = matcase(meaningIndice, 2: end); 
     opts = statset('UseParallel',true); 
     tic; 
-    [b, fitinfo] = lasso(X, Y, 'CV', 5, 'Alpha', 0.4, 'Options', opts); 
+    [b, fitinfo] = lasso(X, Y, 'CV', 5, 'Alpha', ratio, 'Options', opts); 
     toc
 
-    lambdaindex = fitinfo.IndexMinMSE; 
+    lambdaindex = fitinfo.Index1SE; 
     fitinfo.MSE(lambdaindex); 
     coefficients = b(:, lambdaindex); 
     selected_features = find(any(coefficients, 2)); 
