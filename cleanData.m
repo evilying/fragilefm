@@ -26,17 +26,18 @@ matcase = double(matcase);
 ncase = size(matcase, 1); 
 nfeatures = size(matcase, 2); 
 
-for ifeat = 1: nfeatures
-    
-    colsample = matcase(:, ifeat); 
-    if (sum(any(colsample < 0, 2)) == 0)
-        
-        continue; 
-    end
-    colNegInd = find(any(colsample < 0, 2)); 
-    colPosInd = setdiff(1: ncase, colNegInd); 
-    value = mean(colsample(colPosInd)); 
-    matcase(colNegInd, ifeat) = repmat(value, 1, length(colNegInd)); 
-end
+% % fill the empty
+% for ifeat = 1: nfeatures
+%     
+%     colsample = matcase(:, ifeat); 
+%     if (sum(any(colsample < 0, 2)) == 0)
+%         
+%         continue; 
+%     end
+%     colNegInd = find(any(colsample < 0, 2)); 
+%     colPosInd = setdiff(1: ncase, colNegInd); 
+%     value = mean(colsample(colPosInd)); 
+%     matcase(colNegInd, ifeat) = repmat(value, 1, length(colNegInd)); 
+% end
 
 xlswrite(fullfile(dataDir, 'clean-v6.xlsx'), matcase); 

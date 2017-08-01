@@ -13,7 +13,7 @@ function [lm_factor, selected_features] = ...
     X = matcase(meaningIndice, 2: end); 
     opts = statset('UseParallel',true); 
     tic; 
-    [b, fitinfo] = lasso(X, Y, 'CV', 5, 'Alpha', 0.5, 'Options', opts); 
+    [b, fitinfo] = lasso(X, Y, 'CV', 5, 'Alpha', 0.4, 'Options', opts); 
     toc
 
     lambdaindex = fitinfo.IndexMinMSE; 

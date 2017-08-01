@@ -18,9 +18,11 @@ predict_matcase = double(predict_matcase);
 ncase = size(predict_matcase, 1); 
 nfeatures = size(predict_matcase, 2); 
 
+allcases = [matcase; predict_matcase]; 
+
 for ifeat = 1: nfeatures
     
-    colsample = predict_matcase(:, ifeat); 
+    colsample = allcases(:, ifeat); 
     if (sum(any(colsample < 0, 2)) == 0)
         
         continue; 
@@ -28,7 +30,10 @@ for ifeat = 1: nfeatures
     colNegInd = find(any(colsample < 0, 2)); 
     colPosInd = setdiff(1: ncase, colNegInd); 
     value = mean(colsample(colPosInd)); 
-    predict_matcase(colNegInd, ifeat) = repmat(value, 1, length(colNegInd)); 
+    allcases(colNegInd, ifeat) = repmat(value, 1, length(colNegInd)); 
 end
+
+matcase = allcases(1: size(matcase, 1), :); 
+predict_matcase = allcases(2122: 4242, :); 
 
 xlswrite(fullfile(dataDir, 'clean-predict-v6.xlsx'), predict_matcase); 
